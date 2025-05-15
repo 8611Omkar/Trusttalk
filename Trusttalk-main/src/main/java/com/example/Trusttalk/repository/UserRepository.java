@@ -10,13 +10,13 @@ import com.example.Trusttalk.model.User;
 @Repository
 public interface UserRepository extends MongoRepository<User, Long> {
    boolean existsByEmail(String email);
-   boolean ffindById(String id);
+   boolean findById(String id);
 // User findByEmail(String email);
 // Boolean existsById(String id);
    boolean existsById(String id);
    void deleteById(String id);
-   OptionalDouble<User> findById(String id);
-   findbyId(String id);
+   // OptionalDouble<User> findById(String id);
+   // findbyId(String id);
 
 
 }

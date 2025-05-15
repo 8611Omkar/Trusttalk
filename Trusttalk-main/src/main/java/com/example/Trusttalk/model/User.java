@@ -2,35 +2,38 @@ package com.example.Trusttalk.model;
 
 import java.time.LocalDate;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+//import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import lombok.experimental.PackagePrivate;
-import org.springframework.data.annotation.Id;
- @Document  = "users")
+import lombok.Data;
+//import lombok.experimental.PackagePrivate;
+//import org.springframework.data.annotation.Id;
+@Data
+@Document(collection = "users")
 public class User {
+
+    @id
     private Long id;
+    
 	private String username;
 	private String password;  
 	private String email;
 	private String status;
     private LocalDate createdAt;
-     public String getId() {
-        return id;
-    }
+    
 
-    public void setId(String id) {
+  /*  public void setId(String id) //{
         this.id = id;
-    }
+    }//
 
-    public String getUsername() {
+    public String getUsername() //{
         return username;
-    }
+    }//
 
-    public void setUsername(String username) {
+    public void setUsername(String username)// {
         this.username = username;
     }
-
+//
     public String getPassword() {
         return password;
     }
@@ -61,5 +64,6 @@ public class User {
 
     public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
-    }
+    }*/
+
 }

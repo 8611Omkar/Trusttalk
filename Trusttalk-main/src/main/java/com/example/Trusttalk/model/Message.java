@@ -3,8 +3,10 @@ package com.example.Trusttalk.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDateTime;
+import lombok.Data;
 
+import java.time.LocalDateTime;
+@Data
 @Document(collection = "messages") // MongoDB collection name
 public class Message {
 
@@ -19,7 +21,7 @@ public class Message {
     private String status;
     private LocalDateTime createdAt;
 
-    // Getters & Setters
+   /*  // Getters & Setters
 
     public String getId() {
         return id;
@@ -83,5 +85,5 @@ public class Message {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
-    }
+    }*/
 }
