@@ -3,10 +3,12 @@ package com.example.Trusttalk.service;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.example.Trusttalk.model.User;
 import com.example.Trusttalk.repository.UserRepository;
+@Component
 @Service
 public class UserService {
        @Autowired
@@ -42,9 +44,9 @@ public class UserService {
     }
 
     // 2. Get user by ID
-    public Optional<User> getUserById(String id) {
-        return userRepository.findById(id);
-    }
+   // public Optional<User> getUserById(String id) {
+     //   return userRepository.findById(id);
+    //}
 
     // 3. Update User Status
     public void updateUserStatus(String id, String newStatus) {

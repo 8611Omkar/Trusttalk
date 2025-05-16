@@ -5,8 +5,9 @@ import com.example.Trusttalk.repository.MessageRepository;
 
 // import org.apache.el.util.MessageFactory; // Removed unused/incorrect import
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
+@Component
 @Service
 public class MessageService {
 
