@@ -9,7 +9,8 @@ public class ChatMessage {
     private String roomId;
     private String senderId;
     private String receiverId;
-    private List<String> message = new ArrayList<>();
+   // private List<String> message = new ArrayList<>();
+    private  String message;
     private String timestamp;
 
 
