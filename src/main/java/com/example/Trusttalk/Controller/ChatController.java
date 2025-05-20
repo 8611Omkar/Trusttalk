@@ -1,4 +1,4 @@
-package com.example.Trusttalk.controller;
+package com.example.Trusttalk.Controller;
 
 import com.example.Trusttalk.model.ChatMessage;
 import com.example.Trusttalk.service.ChatService;
@@ -22,9 +22,9 @@ public class ChatController {
         if (!isValid) {
             return ResponseEntity
                     .badRequest()
-                    .body("Invalid message: Null, empty, or too long.");
+                    .body(" ");
         }
-
+//Invalid message: Null, empty, or too long.
         // Step 2: Process and return response
         ChatMessage processed = chatService.processMessage(message);
         return ResponseEntity.ok(processed);

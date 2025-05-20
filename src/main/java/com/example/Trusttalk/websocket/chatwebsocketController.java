@@ -1,4 +1,4 @@
-package com.example.Trusttalk.Controller;
+package com.example.Trusttalk.websocket;
 
 import com.example.Trusttalk.model.ChatMessage;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -6,7 +6,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-class ChatController {
+class chatwebsocketController {
 
 
     @MessageMapping("/chat")
