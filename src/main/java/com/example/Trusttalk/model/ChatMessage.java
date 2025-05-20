@@ -1,8 +1,12 @@
 package com.example.Trusttalk.model;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Data
 public class ChatMessage {
 
     private long id;
@@ -13,5 +17,12 @@ public class ChatMessage {
     private  String message;
     private String timestamp;
 
+    public String getContent() {
+        return "reach the limit of message" ;
+    }
 
+    public String getSender() {
+        return null ;
+
+    }
 }

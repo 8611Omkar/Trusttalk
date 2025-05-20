@@ -1,24 +1,29 @@
 package com.example.Trusttalk.Controller;
 
-
-import com.example.Trusttalk.kafka.MessageProducer;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.Trusttalk.model.ChatMessage;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.stereotype.Controller;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
-public class WebSocketController {
+@RestController
+class ChatController {
 
-    @Autowired
-    private MessageProducer kafkaProducer;
 
-    // This method is called when a message is received from frontend via WebSocket
-    @MessageMapping("/chat")  // Frontend will send message to "/app/chat"
-    public void receiveMessage(@Payload String message) {
-        System.out.println("Received message from WebSocket: " + message);
+    @MessageMapping("/chat")
+    @SendTo("/topic/messages")
+    public ChatMessage getContent( ChatMessage chatMessage){
+        try
+        {
 
-        // Send to Kafka
-        kafkaProducer.sendMessage(message);
+            Thread.sleep(1000);
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+
+
+        return  new ChatMessage();
     }
+
 }

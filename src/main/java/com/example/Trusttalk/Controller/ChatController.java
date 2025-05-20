@@ -1,48 +1,32 @@
-package com.example.Trusttalk.Controller;
+package com.example.Trusttalk.controller;
 
-import com.example.Trusttalk.dto.MessageDTO;
-import com.example.Trusttalk.model.Message;
+import com.example.Trusttalk.model.ChatMessage;
 import com.example.Trusttalk.service.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/api/messages")
+
+@RequestMapping("/api/chat")
 public class ChatController {
 
     @Autowired
     private ChatService chatService;
 
-    @PostMapping
-    public ResponseEntity<String> sendMessage(@RequestBody MessageDTO messageDTO) {
-        chatService.saveMessage(messageDTO);
-        return ResponseEntity.ok("Message sent");
-    }
+    @PostMapping("/send")
+    public ResponseEntity<?> sendMessage(@RequestBody ChatMessage message) {
 
-    @GetMapping("/{senderId}/{receiverId}")
-    public ResponseEntity<List<Message>> getChat(
-            @PathVariable String senderId,
-            @PathVariable String receiverId) {
-        return ResponseEntity.ok(chatService.getMessagesBetween(senderId, receiverId));
-    }
+        // Step 1: Validate message
+        boolean isValid = chatService.validateMessage(message);
+        if (!isValid) {
+            return ResponseEntity
+                    .badRequest()
+                    .body("Invalid message: Null, empty, or too long.");
+        }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Message>> getUserMessages(@PathVariable String userId) {
-        return ResponseEntity.ok(chatService.getMessagesOfUser(userId));
-    }
-
-    @PutMapping("/{messageId}")
-    public ResponseEntity<String> updateMessage(@PathVariable String messageId, @RequestBody String newContent) {
-        chatService.updateMessage(messageId, newContent);
-        return ResponseEntity.ok("Message updated");
-    }
-
-    @DeleteMapping("/{messageId}")
-    public ResponseEntity<String> deleteMessage(@PathVariable String messageId) {
-        chatService.deleteMessageById(messageId);
-        return ResponseEntity.ok("Message deleted");
+        // Step 2: Process and return response
+        ChatMessage processed = chatService.processMessage(message);
+        return ResponseEntity.ok(processed);
     }
 }
