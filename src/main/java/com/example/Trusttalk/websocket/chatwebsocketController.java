@@ -23,7 +23,7 @@ class chatwebsocketController {
         }
 
 
-        return  new ChatMessage();
+        return chatMessage;
     }
 
 }

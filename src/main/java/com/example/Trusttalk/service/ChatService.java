@@ -49,7 +49,7 @@ public class ChatService {
         if (!validateMessage(message)) {
             throw new IllegalArgumentException("Invalid message");
         }
-        message.setTimestamp(String.valueOf(System.currentTimeMillis()));
+//        message.(String.valueOf(System.currentTimeMillis()));
 
         // TODO: Save message in DB via repository or publish on Kafka topic
         // chatMessageRepository.save(message);
