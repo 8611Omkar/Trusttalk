@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Chat App</title>
+    <link rel="stylesheet" href="chat.css" />
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <input type="text" class="search-bar" placeholder="Search or start new chat" />
+        <div class="chat-list">
+            <div class="chat-item">
+
+                <div class="chat-info">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Section -->
+    <div class="chat-area">
+        <!-- Header -->
+        <div class="chat-header">
+
+        </div>
+
+        <!-- Messages -->
+        <div class="messages" id="messages">
+
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-area">
+            <input type="text" id="messageInput" placeholder="Type a message" />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+</div>
+
+<script src="chat.js"></script>
+</body>
+</html>

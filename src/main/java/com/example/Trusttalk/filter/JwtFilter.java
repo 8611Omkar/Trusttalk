@@ -1,12 +1,17 @@
 package com.example.Trusttalk.filter;
 
 import com.example.Trusttalk.util.JwtUtil;
+
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.Collections;
 
 @Component
 public class JwtFilter implements Filter {
@@ -27,7 +32,17 @@ public class JwtFilter implements Filter {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
             try {
-                jwtUtil.validateTokenAndRetrieveSubject(token);
+                // ✅ Validate and get email/username from token
+                String email = jwtUtil.validateTokenAndRetrieveSubject(token);
+
+                // ✅ Create a dummy authenticated user (no roles for now)
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(
+                                new User(email, "", Collections.emptyList()), null, Collections.emptyList());
+
+                // ✅ Set into security context
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+
                 chain.doFilter(request, response);
             } catch (Exception e) {
                 ((HttpServletResponse) response).sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid JWT token");

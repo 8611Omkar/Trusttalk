@@ -17,6 +17,7 @@ public class JwtUtil {
 
     private final Algorithm algorithm = Algorithm.HMAC256(SECRET);
 
+    // Create token
     public String generateToken(String username) {
         return JWT.create()
                 .withSubject(username)
@@ -25,9 +26,30 @@ public class JwtUtil {
                 .sign(algorithm);
     }
 
+    // Validate and get username
     public String validateTokenAndRetrieveSubject(String token) throws JWTVerificationException {
         JWTVerifier verifier = JWT.require(algorithm).build();
         DecodedJWT jwt = verifier.verify(token);
         return jwt.getSubject();
+    }
+
+    // Extra: Extract username (same as validateTokenAndRetrieveSubject)
+    public String extractUsername(String token) {
+        try {
+            return validateTokenAndRetrieveSubject(token);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    // Check validity only (true/false)
+    public boolean validateToken(String token) {
+        try {
+            JWTVerifier verifier = JWT.require(algorithm).build();
+            verifier.verify(token);
+            return true;
+        } catch (JWTVerificationException e) {
+            return false;
+        }
     }
 }

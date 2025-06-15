@@ -22,7 +22,7 @@ public class ChatController {
         if (!isValid) {
             return ResponseEntity
                     .badRequest()
-                    .body(" ");
+                    .body(" for ti yiu  ");
         }
 //Invalid message: Null, empty, or too long.
         // Step 2: Process and return response

@@ -1,37 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>WebSocket Chat</title>
-    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login & Sign Up</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://cdn.misdeliver.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 </head>
 <body>
-<h1>Chat</h1>
-<input type="text" id="message" placeholder="Type a message..." />
-<button onclick="sendMessage()">Send</button>
-<ul id="messages"></ul>
+<div class="container">
+  <!-- Login Form -->
+  <div class="form-box" id="loginBox">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <div class="input-group">
+        <label>Username</label>
+        <input type="text" id="username" required />
+      </div>
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" id="password" required />
+      </div>
+      <button type="submit" class="btn">Sign In</button>
+      <div class="links">
+        <a href="#" id="showSignup">Sign Up</a>
+        <a href="#" id="showForgot">Forgot Password?</a>
+      </div>
+    </form>
+  </div>
 
-<script>
-    var stompClient = null;
+  <!-- Sign Up Form -->
+  <div class="form-box hidden" id="signupBox">
+    <h2>Sign Up</h2>
+    <form id="signupForm">
+      <div class="input-group">
+        <label>Username</label>
+        <input type="text" id="signupUsername" required />
+      </div>
+      <div class="input-group">
+        <label>Email ID</label>
+        <input type="email" id="signupEmail" required />
+      </div>
+      <div class="input-group">
+        <label>Mobile Number</label>
+        <input type="tel" id="signupMobile" maxlength="10" required />
+        <button type="button" onclick="sendSignupOTP()">Send OTP</button>
+      </div>
+      <div class="input-group hidden" id="signupOtpBox">
+        <label>Enter OTP</label>
+        <input type="text" id="signupOtp" required />
+      </div>
+      <div class="input-group">
+        <label>Create Password</label>
+        <input type="password" id="signupPassword" required />
+      </div>
+      <div class="input-group">
+        <label>Confirm Password</label>
+        <input type="password" id="signupConfirmPassword" required />
+      </div>
+      <button type="submit" class="btn">Register</button>
+      <div class="links">
+        <a href="#" id="showLogin">Already have an account? Sign In</a>
+      </div>
+    </form>
+  </div>
 
-    function connect() {
-        var socket = new SockJS('/ws');
-        stompClient = Stomp.over(socket);
-        stompClient.connect({}, function () {
-            console.log('Connected');
-            stompClient.subscribe('/topic/messages', function (messageOutput) {
-                var message = JSON.parse(messageOutput.body);
-                document.getElementById('messages').innerHTML += `<li>${message.sender}: ${message.content}</li>`;
-            });
-        });
-    }
+  <!-- Forgot Password Form -->
+  <div class="form-box hidden" id="forgotBox">
+    <h2>Forgot Password</h2>
+    <form id="forgotForm">
+      <div class="input-group">
+        <label>Username</label>
+        <input type="text" required />
+      </div>
+      <div class="input-group">
+        <label>Mobile Number</label>
+        <input type="tel" id="forgotMobile" maxlength="10" required />
+        <button type="button" onclick="sendForgotOTP()">Send OTP</button>
+      </div>
+      <div class="input-group hidden" id="forgotOtpBox">
+        <label>Enter OTP</label>
+        <input type="text" required />
+      </div>
+      <div class="input-group">
+        <label>Create New Password</label>
+        <input type="password" required />
+      </div>
+      <div class="input-group">
+        <label>Confirm Password</label>
+        <input type="password" required />
+      </div>
+      <button type="submit" class="btn">Save</button>
+      <a href="#" id="backToLogin">Back to Login</a>
+    </form>
+  </div>
+</div>
 
-    function sendMessage() {
-        var messageContent = document.getElementById('message').value;
-        stompClient.send("/app/chat", {}, JSON.stringify({'sender': 'Omkar', 'content': messageContent}));
-    }
-
-    connect();
-</script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+<script src="chat.js"></script>
 </body>
 </html>
